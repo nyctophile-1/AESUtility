@@ -1,4 +1,5 @@
 using Core.Services;
+using System.Text;
 
 namespace AESUtility
 {
@@ -63,16 +64,16 @@ namespace AESUtility
             }
 
             var keyUtility = new KeyDecryptionUtility(_masterKey, _iterations, _keySize, _ivSize, _tagSize, _saltSize);
-            if (_mode == "Encrypt")
+            if (_mode == "Encryption")
             {
-                //keyUtility.EncryptKeyToBase64((_plainText))
+                var str = Encoding.UTF8.GetBytes(_plainText);
+                result.Text = keyUtility.EncryptKeyToBase64((str));
             }
             else
             {
-
+                result.Text = Encoding.UTF8.GetString(keyUtility.DecryptKeyFromBase64((_plainText)));
             }
 
-            result.Text = "Hellooo";
         }
     }
 }
